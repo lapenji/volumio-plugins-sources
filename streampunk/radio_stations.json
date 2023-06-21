@@ -1,0 +1,42 @@
+{
+	"baseNavigation": {
+		"navigation": {
+			"lists": [
+				{
+					"availableListViews": [
+						"list"
+					],
+					"items": []
+				}
+			]
+		}
+	},
+	"stations": {
+		"streampunk": [
+			{
+				"title": "Radio Wombat",
+				"uri": "webstp/0",
+				"url": "https://s.streampunk.cc/wombat.mp3",
+				"art": "/albumart?sourceicon=music_service/streampunk/wombat.svg"
+			},
+			{
+				"title": "Radio Onda Rossa",
+				"uri": "webstp/1",
+				"url": "https://s.streampunk.cc/ondarossa.mp3",
+				"art": "/albumart?sourceicon=music_service/streampunk/ondarossa.png"
+			},
+			{
+				"title": "Radio Blackout",
+				"uri": "webstp/2",
+				"url": "https://s.streampunk.cc/blackout.mp3",
+				"art": "/albumart?sourceicon=music_service/streampunk/blackout.png"
+			},
+			{
+				"title": "Merda Malata",
+				"uri": "webstp/3",
+				"url": "https://s.streampunk.cc/merdamalata.mp3",
+				"art": "/albumart?sourceicon=music_service/streampunk/merdamalata.svg"
+			}
+		]
+	}
+}
