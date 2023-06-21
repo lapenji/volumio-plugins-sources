@@ -4,11 +4,11 @@
   },
   "sections": [
     {
-      "id": "delay",
+      "id": "sources",
       "element": "section",
-      "label": "delay",
+      "label": "Sources",
       "icon": "fa-cogs",
-      "description": "The API delay for metadata (artist, title) in seconds.",
+      "description": "Add source",
       "onSave": {
         "type": "controller",
         "endpoint": "music_service/streampunk",
@@ -17,16 +17,16 @@
       "saveButton": {
         "label": "Save",
         "data": [
-          "apiDelay"
+          "sources"
         ]
       },
       "content": [
         {
-          "id": "apiDelay",
+          "id": "add source (full url)",
           "type": "text",
           "element": "input",
-          "label": "API Delay (in seconds)",
-          "value": 5
+          "label": "add source (full url)",
+          "value": ""
         }
       ]
     }

@@ -21,8 +21,7 @@ streampunk.prototype.onVolumioStart = function () {
 	var self = this;
 	self.configFile = this.commandRouter.pluginManager.getConfigurationFile(this.context, 'config.json')
 	self.getConf(self.configFile)
-	self.apiDelay = self.config.get('apiDelay');
-	self.logger.info('[' + Date.now() + '] ' + '[streampunk] API delay: ' + self.apiDelay)
+
 
 	return libQ.resolve();
 }
@@ -68,7 +67,6 @@ streampunk.prototype.getUIConfig = function () {
 	self.getConf(this.configFile);
 	self.commandRouter.i18nJson(__dirname + '/i18n/strings_' + lang_code + '.json', __dirname + '/i18n/strings_en.json', __dirname + '/UIConfig.json')
 		.then((uiconf) => {
-			uiconf.sections[0].content[0].value = self.config.get('apiDelay');
 			defer.resolve(uiconf)
 		})
 		.fail(() => {
@@ -100,27 +98,6 @@ streampunk.prototype.setConf = function (varName, varValue) {
 streampunk.prototype.updateConfig = function (data) {
 	var self = this;
 	var defer = libQ.defer()
-	var configUpdated = false;
-
-	if (self.config.get('apiDelay') != data['apiDelay']) {
-		self.config.set('apiDelay', data['apiDelay'])
-		self.apiDelay = data['apiDelay'];
-		configUpdated = true;
-	}
-
-	if (configUpdated) {
-		var responseData = {
-			title: selft.getRadioI18nString('PLUGIN_NAME'),
-			message: self.getRadioI18nString('SAVE_CONFIG_MESSAGE'),
-			size: 'md',
-			buttons: [{
-				name: 'Close',
-				class: 'btn btn-info'
-			}]
-		};
-
-		self.commandRouter.broadcastMessage("openModal", responseData);
-	}
 	return defer.promise
 }
 
