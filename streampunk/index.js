@@ -26,20 +26,23 @@ streampunk.prototype.onVolumioStart = function () {
 
 streampunk.prototype.deleteSrc = function (data) {
 	var self = this
-	console.log('LOGGO RADIOSTATIONS PRIMA DEL DELETE')
-	console.table(self.radioResource.stations.streampunk)
-	self.radioStations.streampunk.splice(data.value -1, 1)
+	console.log(data.nameCSource)
+	if (data.nameCSource.value == -1) {
+		self.commandRouter.pushToastMessage('error', 'Invalid Source', `Please select a valid source to delete`);
+		libQ.reject(new Error());
+		return
+	}
+	self.radioStations.streampunk.splice(data.nameCSource.value, 1)
 	for (let i = 0; i < self.radioStations.streampunk.length; i++) {
 		self.radioStations.streampunk[i].uri = 'webstp/' + i
 	}
-	console.log('LOGGO RADIO STATIONS DOPO DELETE')
-	console.table(self.radioResource.stations.streampunk)
 	try {
 		fs.writeJsonSync('/data/plugins/music_service/streampunk/radio_stations.json', self.radioResource)
 	} catch (e) {
-		console.log(e)
+		self.logger.error('[' + Date.now() + '] ' + '[streampunk] saving file failed');
+		libQ.reject(new Error());
 	}
-	self.getRadioContent()
+	self.commandRouter.pushToastMessage('success', 'Source deleted', `Source ${data.nameCSource.label} delete succesfully`);
 	var defer = libQ.defer()
 	return defer.promise
 }
@@ -83,20 +86,11 @@ streampunk.prototype.getUIConfig = function () {
 	var lang_code = this.commandRouter.sharedVars.get('language_code');
 	
 	self.getConf(this.configFile);
-	console.log('----LUNGHEZZA DI STREAMPUNK---\n\n', this.radioStations.streampunk.length)
 	self.commandRouter.i18nJson(__dirname + '/i18n/strings_' + lang_code + '.json', __dirname + '/i18n/strings_en.json', __dirname + '/UIConfig.json')
 		.then((uiconf) => {
-
-			console.log("STAMPO")
-			//uiconf.sections[0].content[0].value.value = this.radioStatoins.streampunk.length
-			console.log('valore dopo')
-			console.log(uiconf.sections[0].content[0].value.value)
 			for (var i = 0; i < this.radioStations.streampunk.length; i++) {
-				console.log('entro')
-				console.log (this.radioStations.streampunk[i].title)
 				uiconf.sections[0].content[0].options.push({value: i, label: this.radioStations.streampunk[i].title})
 			}
-			console.log('UICONF SECTIONS 0 CONTENT 0\n',uiconf.sections[0].content[0].options)
 			
 
 			defer.resolve(uiconf)
@@ -129,8 +123,18 @@ streampunk.prototype.setConf = function (varName, varValue) {
 
 streampunk.prototype.updateConfig = function (data) {
 	var self = this;
-	console.log ('radio stations prima di aggiunta\n', self.radioResource)
 	const currentMaxStation = this.radioStations.streampunk.length;
+	console.log('risultato di filter', this.radioStations.streampunk.filter((o) => o.title === data.name).length)
+	if (this.radioStations.streampunk.filter((o) => o.title === data.name).length > 0) {
+		self.commandRouter.pushToastMessage('error', 'Double Name', `Source with name ${data.name} already exist`);
+		libQ.reject(new Error());
+		return
+	}
+	if (this.radioStations.streampunk.filter((o) => o.url === data.url)) {
+		self.commandRouter.pushToastMessage('error', 'Double Url', `Your source ${this.radioStations.streampunk.find((o) => o.url === data.url).title} already has that url`);
+		libQ.reject(new Error());
+		return
+	}
 	const newStation = {
 		title: data.name,
 		uri: 'webstp/' + currentMaxStation,
@@ -138,13 +142,13 @@ streampunk.prototype.updateConfig = function (data) {
 		art: "/albumart?sourceicon=music_service/streampunk/streampunk.svg"
 	}
 	self.radioStations.streampunk.push(newStation)
-	console.log ('radio stations dopo aggiunta\n', self.radioStations)
 	try {
 		fs.writeJsonSync('/data/plugins/music_service/streampunk/radio_stations.json', self.radioResource)
 	} catch (e) {
-		console.log(e)
+		self.logger.error('[' + Date.now() + '] ' + '[streampunk] saving file failed');
+		libQ.reject(new Error());
 	}
-	self.getRadioContent()
+	self.commandRouter.pushToastMessage('success', 'Source added', `Source ${data.name} succesfully`);
 	var defer = libQ.defer()
 	return defer.promise
 }
@@ -267,9 +271,6 @@ streampunk.prototype.explodeUri = function (uri) {
 	var channel = parseInt(uris[1])
 	var query;
 	var station;
-	console.log('explode uri:\n')
-	console.log('uris: ', uris);
-	console.log('channel: ', channel)
 	station = uris[0].substring(3);
 	switch (uris[0]) {
 		case 'webstp':

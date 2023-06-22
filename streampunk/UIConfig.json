@@ -15,6 +15,7 @@
       },
       "saveButton": {
         "label": "Delete",
+        "id": "delete",
         "data": [
           "nameCSource"
         ]
