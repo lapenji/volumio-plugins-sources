@@ -21,8 +21,14 @@ streampunk.prototype.onVolumioStart = function () {
 	var self = this;
 	self.configFile = this.commandRouter.pluginManager.getConfigurationFile(this.context, 'config.json')
 	self.getConf(self.configFile)
+	console.log('\n\n--- inizio stampa ---\n\n')
 
-
+	let uidata = fs.readJsonSync(__dirname + '/UIConfig.json');
+	console.log('--UI DATA--\n')
+	console.log(uidata);
+	console.log('---RADIO STATIONS\n')
+	console.log(this.radioStations.streampunk)
+	console.log('\n\n-----fine stampa---\n\n')
 	return libQ.resolve();
 }
 
@@ -67,6 +73,8 @@ streampunk.prototype.getUIConfig = function () {
 	self.getConf(this.configFile);
 	self.commandRouter.i18nJson(__dirname + '/i18n/strings_' + lang_code + '.json', __dirname + '/i18n/strings_en.json', __dirname + '/UIConfig.json')
 		.then((uiconf) => {
+			uiconf.sections[0].content[0].value = ""
+			uiconf.sections[0].content[1].value = ""
 			defer.resolve(uiconf)
 		})
 		.fail(() => {
@@ -97,6 +105,21 @@ streampunk.prototype.setConf = function (varName, varValue) {
 
 streampunk.prototype.updateConfig = function (data) {
 	var self = this;
+	var radioStations = self.radioStations.streampunk;
+	const currentMaxStation = radioStations.length;
+	const newStation = {
+		title: data.name,
+		uri: 'webstp/' + currentMaxStation,
+		url: data.url,
+		art: "/albumart?sourceicon=music_service/streampunk/streampunk.svg"
+	}
+	radioStations.push(newStation)
+	try {
+		fs.writeJsonSync('/data/plugins/music_service/streampunk/radio_station.json', radioStations)
+	} catch (e) {
+		console.log(e)
+	}
+
 	var defer = libQ.defer()
 	return defer.promise
 }
@@ -166,7 +189,6 @@ streampunk.prototype.clearAddPlayTrack = function (track) {
 	if (self.timer) {
 		self.timer.clear();
 	}
-
 	return self.mpdPlugin.sendMpdCommand('stop', [])
 		.then(() => {
 			return self.mpdPlugin.sendMpdCommand('clear', []);

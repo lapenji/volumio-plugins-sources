@@ -17,15 +17,23 @@
       "saveButton": {
         "label": "Save",
         "data": [
-          "sources"
+          "url",
+          "name"
         ]
       },
       "content": [
         {
-          "id": "add source (full url)",
+          "id": "url",
           "type": "text",
           "element": "input",
           "label": "add source (full url)",
+          "value": ""
+        },
+        {
+          "id": "name",
+          "type": "text",
+          "element": "input",
+          "label": "service name",
           "value": ""
         }
       ]
