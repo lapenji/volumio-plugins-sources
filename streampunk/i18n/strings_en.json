@@ -7,5 +7,18 @@
   "ERROR_STREAM_SERVER":  "There is a problem in {0} radio streaming server.",
   "INCORRECT_RESPONSE":  "There is incorrect response from {0} radio streaming server.",
   "SAVE":"Save",
-  "SAVE_CONFIG_MESSAGE":"Configuration saved successfully."
+  "SAVE_CONFIG_MESSAGE":"Configuration saved successfully.",
+  "CURRENTSRC" : {
+    "DELETE_SOURCE" : "Delete Source",
+    "CURRENT_SOURCES" : "Current Sources",
+    "SERVICE_NAME" : "Service name",
+    "DELETE": "Delete"
+  },
+  "NEWSRC" : {
+    "ADD_SOURCE": "Add source",
+    "ADD_SOURCES": "Add sources",
+    "SAVE" : "Save",
+    "ADD_SRC_URL": "add source (full url)",
+    "NAME": "service name"
+  }
 }

@@ -4,17 +4,18 @@
   },
   "sections": [
     {
+      "label" : "TRANSLATE.CURRENTSRC.DELETE_SOURCE",
       "id" : "currentSrc",
       "element" : "section",
-      "label" : "cSources",
-      "description" : "Current Sources",
+      "icon": "fa-trash",
+      "description" : "TRANSLATE.CURRENTSRC.CURRENT_SOURCES",
       "onSave": {
         "type": "controller",
         "endpoint": "music_service/streampunk",
         "method": "deleteSrc"
       },
       "saveButton": {
-        "label": "Delete",
+        "label": "TRANSLATE.CURRENTSRC.DELETE",
         "id": "delete",
         "data": [
           "nameCSource"
@@ -24,8 +25,8 @@
         {
           "id": "nameCSource",
           "element": "select",
-          "label": "service name",
-          "value": {"value": -1, "label" :"service name"},
+          "label": "TRANSLATE.CURRENTSRC.SERVICE_NAME",
+          "value": {"value": -1, "label" :"TRANSLATE.CURRENTSRC.SERVICE_NAME"},
           "options": [
           ]
         }
@@ -34,9 +35,9 @@
     {
       "id": "newSrc",
       "element": "section",
-      "label": "Sources",
-      "icon": "fa-cogs",
-      "description": "Add source",
+      "label": "TRANSLATE.NEWSRC.ADD_SOURCES",
+      "icon": "fa-plus",
+      "description": "TRANSLATE.NEWSRC.ADD_SOURCES",
       "onSave": {
         "type": "controller",
         "endpoint": "music_service/streampunk",
@@ -54,14 +55,14 @@
           "id": "url",
           "type": "text",
           "element": "input",
-          "label": "add source (full url)",
+          "label": "TRANSLATE.NEWSRC.ADD_SRC_URL",
           "value": ""
         },
         {
           "id": "name",
           "type": "text",
           "element": "input",
-          "label": "service name",
+          "label": "TRANSLATE.NEWSRC.NAME",
           "value": ""
         }
       ]
