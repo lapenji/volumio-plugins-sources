@@ -4,7 +4,34 @@
   },
   "sections": [
     {
-      "id": "sources",
+      "id" : "currentSrc",
+      "element" : "section",
+      "label" : "cSources",
+      "description" : "Current Sources",
+      "onSave": {
+        "type": "controller",
+        "endpoint": "music_service/streampunk",
+        "method": "deleteSrc"
+      },
+      "saveButton": {
+        "label": "Delete",
+        "data": [
+          "nameCSource"
+        ]
+      },
+      "content": [
+        {
+          "id": "nameCSource",
+          "element": "select",
+          "label": "service name",
+          "value": {"value": -1, "label" :"service name"},
+          "options": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": "newSrc",
       "element": "section",
       "label": "Sources",
       "icon": "fa-cogs",
