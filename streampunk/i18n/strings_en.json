@@ -1,8 +1,8 @@
 {
-  "PLUGIN_CONFIGURATION":"Example Plugin Configuration",
+  "PLUGIN_CONFIGURATION":"Streampunk Configuration",
   "NO_CONFIGURATION_AVAILABLE":"No configuration available",	
-  "PLUGIN_NAME": "Streampunk",
-  "WAIT_FOR_RADIO_CHANNEL":"Please Wait for radio channel....",
+  "PLUGIN_NAME": "streampunk",
+  "WAIT_FOR_RADIO_CHANNEL":"Please Wait for stream....",
   "STOP_RADIO_CHANNEL": "Stopped Streampunk",
   "ERROR_STREAM_SERVER":  "There is a problem in {0} radio streaming server.",
   "INCORRECT_RESPONSE":  "There is incorrect response from {0} radio streaming server.",
@@ -12,7 +12,9 @@
     "DELETE_SOURCE" : "Delete Source",
     "CURRENT_SOURCES" : "Current Sources",
     "SERVICE_NAME" : "Service name",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "SRC_DELETED" : "Source deleted",
+    "SRC_DELETED_OK" : "Source deleted correctly: "
   },
   "NEWSRC" : {
     "ADD_SOURCE": "Add source",
@@ -20,5 +22,14 @@
     "SAVE" : "Save",
     "ADD_SRC_URL": "add source (full url)",
     "NAME": "service name"
+  },
+  "ERRORS" : {
+    "ERROR" : "Error",
+    "D_NAME": "Double name",
+    "D_URL" : "Double url",
+    "S_WITH_NAME" : "A source with that name already exist: ",
+    "S_WITH_URL" : "A source with that url already exist: ",
+    "INVALID_SOURCE" : "Invalid source",
+    "INVALID_MESSAGE" : "Please select a valid source to delete"
   }
 }

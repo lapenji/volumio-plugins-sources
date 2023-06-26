@@ -26,9 +26,8 @@ streampunk.prototype.onVolumioStart = function () {
 
 streampunk.prototype.deleteSrc = function (data) {
 	var self = this
-	console.log(data.nameCSource)
 	if (data.nameCSource.value == -1) {
-		self.commandRouter.pushToastMessage('error', 'Invalid Source', `Please select a valid source to delete`);
+		self.commandRouter.pushToastMessage('error', self.getRadioI18nString('INVALID_SOURCE'), `Please select a valid source to delete`);
 		libQ.reject(new Error());
 		return
 	}
@@ -37,7 +36,7 @@ streampunk.prototype.deleteSrc = function (data) {
 		self.radioStations.streampunk[i].uri = 'webstp/' + i
 	}
 	try {
-		fs.writeJsonSync('/data/plugins/music_service/streampunk/radio_stations.json', self.radioResource)
+		fs.writeJson('/data/plugins/music_service/streampunk/radio_stations.json', self.radioResource)
 	} catch (e) {
 		self.logger.error('[' + Date.now() + '] ' + '[streampunk] saving file failed');
 		libQ.reject(new Error());
@@ -91,8 +90,6 @@ streampunk.prototype.getUIConfig = function () {
 			for (var i = 0; i < this.radioStations.streampunk.length; i++) {
 				uiconf.sections[0].content[0].options.push({value: i, label: this.radioStations.streampunk[i].title})
 			}
-			
-
 			defer.resolve(uiconf)
 		})
 		.fail(() => {
@@ -124,13 +121,12 @@ streampunk.prototype.setConf = function (varName, varValue) {
 streampunk.prototype.updateConfig = function (data) {
 	var self = this;
 	const currentMaxStation = this.radioStations.streampunk.length;
-	console.log('risultato di filter', this.radioStations.streampunk.filter((o) => o.title === data.name).length)
 	if (this.radioStations.streampunk.filter((o) => o.title === data.name).length > 0) {
 		self.commandRouter.pushToastMessage('error', 'Double Name', `Source with name ${data.name} already exist`);
 		libQ.reject(new Error());
 		return
 	}
-	if (this.radioStations.streampunk.filter((o) => o.url === data.url)) {
+	if (this.radioStations.streampunk.filter((o) => o.url === data.url).length > 0) {
 		self.commandRouter.pushToastMessage('error', 'Double Url', `Your source ${this.radioStations.streampunk.find((o) => o.url === data.url).title} already has that url`);
 		libQ.reject(new Error());
 		return
@@ -148,7 +144,7 @@ streampunk.prototype.updateConfig = function (data) {
 		self.logger.error('[' + Date.now() + '] ' + '[streampunk] saving file failed');
 		libQ.reject(new Error());
 	}
-	self.commandRouter.pushToastMessage('success', 'Source added', `Source ${data.name} succesfully`);
+	self.commandRouter.pushToastMessage('success', 'Source added', `Source ${data.name} added succesfully`);
 	var defer = libQ.defer()
 	return defer.promise
 }
@@ -161,7 +157,7 @@ streampunk.prototype.addToBrowseSources = function () {
 		name: self.getRadioI18nString('PLUGIN_NAME'),
 		uri: 'streampunk',
 		plugin_type: 'music_service',
-		plugin_name: 'streampunk',
+		plugin_name: self.getRadioI18nString('PLUGIN_NAME'),
 		albumart: '/albumart?sourceicon=music_service/streampunk/streampunk.svg'
 	})
 }

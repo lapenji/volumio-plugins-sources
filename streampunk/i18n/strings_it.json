@@ -1,0 +1,35 @@
+{
+    "PLUGIN_CONFIGURATION":"Configurazione Streampunk",
+    "NO_CONFIGURATION_AVAILABLE":"Nessuna configurazione disponibile",	
+    "PLUGIN_NAME": "streampunk",
+    "WAIT_FOR_RADIO_CHANNEL":"Attendere per lo stream....",
+    "STOP_RADIO_CHANNEL": "Stopped Streampunk",
+    "ERROR_STREAM_SERVER":  "C'e` stato un problema con {0} radio streaming server.",
+    "INCORRECT_RESPONSE":  "Risposta non corretta da {0} radio streaming server.",
+    "SAVE":"Salva",
+    "SAVE_CONFIG_MESSAGE":"Configuration saved successfully.",
+    "CURRENTSRC" : {
+      "DELETE_SOURCE" : "Rimuovi sorgente",
+      "CURRENT_SOURCES" : "Sorgenti configurate",
+      "SERVICE_NAME" : "Nome servizio",
+      "DELETE": "Elimina",
+      "SRC_DELETED" : "Sorgente eliminata",
+      "SRC_DELETED_OK" : "La sorgente e` stata eliminata con successo: "
+    },
+    "NEWSRC" : {
+      "ADD_SOURCE": "Aggiungi sorgenti",
+      "ADD_SOURCES": "Aggiungi sorgente",
+      "SAVE" : "Salva",
+      "ADD_SRC_URL": "aggiungi sorgente (indirizzo completo)",
+      "NAME": "nome sorgente"
+    },
+    "ERRORS" : {
+      "ERROR" : "Errore",
+      "D_NAME": "Nome doppio",
+      "D_URL" : "Url doppio",
+      "S_WITH_NAME" : "Esiste gia` una sorgente con il nome ",
+      "S_WITH_URL" : "Esiste gia` una sorgente con lo stesso url ",
+      "INVALID_SOURCE" : "Sorgente non valida",
+      "INVALID_MESSAGE" : "Scegli una sorgente valida da eliminare"
+    }
+  }
